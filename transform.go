@@ -8,7 +8,7 @@ import (
 	"github.com/itchyny/gojq"
 )
 
-func transform(jsonStr, xform string) (string, error) {
+func Transform(jsonStr, xform string) (string, error) {
 	query, err := gojq.Parse(xform)
 	if err != nil {
 		log.Fatalln(err)
