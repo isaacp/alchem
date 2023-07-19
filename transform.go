@@ -2,8 +2,6 @@ package alchem
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 
 	"github.com/itchyny/gojq"
 )
@@ -20,15 +18,13 @@ func ConvertAndTransform(object any, xform string) (string, error) {
 func Transform(jsonStr, xform string) (string, error) {
 	query, err := gojq.Parse(xform)
 	if err != nil {
-		log.Fatalln(err)
 		return "", err
 	}
 
 	var result map[string]any
 
 	if err := json.Unmarshal([]byte(jsonStr), &result); err != nil {
-		fmt.Println(err)
-		return "", nil
+		return "", err
 	}
 
 	iter := query.Run(result) // or query.RunWithContext
@@ -39,11 +35,11 @@ func Transform(jsonStr, xform string) (string, error) {
 			break
 		}
 		if err, ok := v.(error); ok {
-			log.Fatalln(err)
+			return "", err
 		}
 		retval, err = json.MarshalIndent(v, "", "  ")
 		if err != nil {
-			log.Fatal(err)
+			return "", err
 		}
 	}
 	return string(retval), nil
