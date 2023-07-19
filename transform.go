@@ -8,6 +8,11 @@ import (
 	"github.com/itchyny/gojq"
 )
 
+func ConvertAndTransform(object any, xform string) (string, error) {
+	jsonString := fmt.Sprintf("%+v", object)
+	return Transform(jsonString, xform)
+}
+
 func Transform(jsonStr, xform string) (string, error) {
 	query, err := gojq.Parse(xform)
 	if err != nil {
