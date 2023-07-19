@@ -14,7 +14,6 @@ func ConvertAndTransform(object any, xform string) (string, error) {
 		return "", err
 	}
 	jsonString := string(jsonBytes)
-	fmt.Println("TEST: " + jsonString)
 	return Transform(jsonString, xform)
 }
 
