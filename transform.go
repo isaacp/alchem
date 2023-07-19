@@ -9,7 +9,11 @@ import (
 )
 
 func ConvertAndTransform(object any, xform string) (string, error) {
-	jsonString := fmt.Sprintf("%+v", object)
+	jsonBytes, err := json.Marshal(object)
+	if err != nil {
+		return "", err
+	}
+	jsonString := string(jsonBytes)
 	return Transform(jsonString, xform)
 }
 
