@@ -1,4 +1,4 @@
-package alchem
+package main
 
 import (
 	"encoding/json"
