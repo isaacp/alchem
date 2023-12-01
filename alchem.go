@@ -6,22 +6,22 @@ import (
 	"github.com/itchyny/gojq"
 )
 
-func ConvertAndTransform(object any, xform string) (string, error) {
+func ConvertAndTransform[T any](object any, xform string) (string, error) {
 	jsonBytes, err := json.Marshal(object)
 	if err != nil {
 		return "", err
 	}
 	jsonString := string(jsonBytes)
-	return Transform(jsonString, xform)
+	return Transform[T](jsonString, xform)
 }
 
-func Transform(jsonStr, xform string) (string, error) {
+func Transform[T any](jsonStr, xform string) (string, error) {
 	query, err := gojq.Parse(xform)
 	if err != nil {
 		return "", err
 	}
 
-	var result map[string]any
+	var result T
 
 	if err := json.Unmarshal([]byte(jsonStr), &result); err != nil {
 		return "", err
