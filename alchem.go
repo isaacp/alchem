@@ -21,13 +21,13 @@ func Transform[T any](jsonStr, xform string) (string, error) {
 		return "", err
 	}
 
-	var result T
+	//var result T
 
-	if err := json.Unmarshal([]byte(jsonStr), &result); err != nil {
-		return "", err
-	}
+	//if err := json.Unmarshal([]byte(jsonStr), &result); err != nil {
+	//	return "", err
+	//}
 
-	iter := query.Run(result) // or query.RunWithContext
+	iter := query.Run(jsonStr) // or query.RunWithContext
 	retval := make([]byte, 0)
 	for {
 		v, ok := iter.Next()
