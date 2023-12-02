@@ -2,6 +2,7 @@ package alchem
 
 import (
 	"encoding/json"
+	"strings"
 
 	"github.com/itchyny/gojq"
 )
@@ -11,7 +12,7 @@ func ConvertAndTransform[T any](object any, xform string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	jsonString := string(jsonBytes)
+	jsonString := strings.Replace(string(jsonBytes), "\\\"", "", -1)
 	return Transform[T](jsonString, xform)
 }
 
